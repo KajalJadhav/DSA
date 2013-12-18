@@ -47,8 +47,3 @@ void* dequeue(Queue *queue){
 	return poppedElement;
 }
 
-// void* rear(Queue *queue){
-// 	if(queue->rear == -1)
-// 		return NULL;
-// 	return &queue->front;
-// }

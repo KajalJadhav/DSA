@@ -130,37 +130,6 @@ void test_for_dequeueing_float_element_from_queue(){
 	ASSERT(actual->rear == 0);
 }
 
-// void test_deQueues_string_elememt_from_queue_12(){
-// 	void* rearElement;
-// 	String a[3]={"sumit"};
-// 	String s ="sumit";
-// 	String d = "suraj";
-// 	Queue* actual = create(sizeof(String),3);
-// 	Queue expected = {3,sizeof(String),2,a};
-// 	enqueue(actual,&s);
-// 	enqueue(actual,&d);
-// 	rearElement = dequeue(actual);
-// 	printf("kfdlsfjl:%s:hjds\n",rearElement);
-// 	ASSERT(0 == strcmp(s,*(String*)rearElement));
-// }
-
-// void test_for_non_dequeueing_float_element_from_queue(){
-// 	Queue* actual = create(sizeof(float),5);
-// 	void* result;
-// 	result = dequeue(actual);
-// 	ASSERT(result == 1);
-// }
-
-// void test_for_non_enqueueing_float_element_from_queue(){
-// 	Queue* actual = create(sizeof(float),4);
-// 	bool result;
-// 	float value = 5;
-// 	actual->rear = 3;
-// 	result = enqueue(actual,&value);
-// 	printf("%d\n", result);
-// 	ASSERT(result == 1);
-// }
-
 void test_fail(){
 	ASSERT(0);
 }
