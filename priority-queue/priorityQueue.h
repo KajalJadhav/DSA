@@ -1,17 +1,5 @@
-typedef char String[256];
-
-typedef struct queue{
-    void* data;
-    int priority;
-    struct queue *next;
-}Queue;
-
-typedef struct{
-    Queue *front;
-    int length;
-}List;
-
-List* create();
-typedef int compareFunc(void* , void*);
-int insertElement(List *queue,Queue *q,compareFunc* compare);
-int removeElement(List* queue);
+#include <stdlib.h>
+void* createQueue();
+typedef int compFunc(void* element1, void* element2);
+int enqueue(void* queue,void* data, size_t priority,compFunc* compare);
+void* dequeue(void* queue);

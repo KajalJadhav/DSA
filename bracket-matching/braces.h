@@ -1,9 +1,9 @@
 #include <stdbool.h>
 typedef struct {
-        void* elements;
-        int top;
-        int length;
-        int elementSize;
+    void* elements;
+    int top;
+    int length;
+    int elementSize;
 }Stack;
 
 typedef char String[256];

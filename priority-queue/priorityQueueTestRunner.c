@@ -49,79 +49,54 @@ int main(){
 	fixtureSetup();
 	resetTestCount();
 
-	testStarted("test_1_creates_a_new_process");
+	testStarted("test_1_enqueues_an_integer_element_in_empty_queue_and_gives_back_that_element_when_dequeued");
 	setup();
-		test_1_creates_a_new_process();
+		test_1_enqueues_an_integer_element_in_empty_queue_and_gives_back_that_element_when_dequeued();
 	tearDown();
 	testEnded();
-	testStarted("test_2_adds_first_element_in_queue_of_integer");
+	testStarted("test_2_enqueues_the_integer_elements_in_queue_and_dequeue_the_top_element");
 	setup();
-		test_2_adds_first_element_in_queue_of_integer();
+		test_2_enqueues_the_integer_elements_in_queue_and_dequeue_the_top_element();
 	tearDown();
 	testEnded();
-	testStarted("test_3_adds_first_element_in_queue_of_float");
+	testStarted("test_3_enqueues_an_float_element_in_empty_queue_and_gives_back_that_element_when_dequeued");
 	setup();
-		test_3_adds_first_element_in_queue_of_float();
+		test_3_enqueues_an_float_element_in_empty_queue_and_gives_back_that_element_when_dequeued();
 	tearDown();
 	testEnded();
-	testStarted("test_4_adds_first_element_in_queue_of_double");
+	testStarted("test_4_enqueues_the_float_elements_in_queue_and_dequeue_the_element_with_lowest_priority");
 	setup();
-		test_4_adds_first_element_in_queue_of_double();
+		test_4_enqueues_the_float_elements_in_queue_and_dequeue_the_element_with_lowest_priority();
 	tearDown();
 	testEnded();
-	testStarted("test_5_adds_first_element_in_queue_of_characters");
+	testStarted("test_5_enqueues_an_double_element_in_empty_queue_and_gives_back_that_element_when_dequeued");
 	setup();
-		test_5_adds_first_element_in_queue_of_characters();
+		test_5_enqueues_an_double_element_in_empty_queue_and_gives_back_that_element_when_dequeued();
 	tearDown();
 	testEnded();
-	testStarted("test_6_adds_first_element_in_queue_of_string");
+	testStarted("test_6_enqueues_the_double_elements_in_queue_and_dequeue_the_element_with_lowest_priority");
 	setup();
-		test_6_adds_first_element_in_queue_of_string();
+		test_6_enqueues_the_double_elements_in_queue_and_dequeue_the_element_with_lowest_priority();
 	tearDown();
 	testEnded();
-	testStarted("test_7_adds_element_of_high_priority_rather_than_first_for_integer");
+	testStarted("test_7_enqueues_an_character_element_in_empty_queue_and_gives_back_that_element_when_dequeued");
 	setup();
-		test_7_adds_element_of_high_priority_rather_than_first_for_integer();
+		test_7_enqueues_an_character_element_in_empty_queue_and_gives_back_that_element_when_dequeued();
 	tearDown();
 	testEnded();
-	testStarted("test_8_adds_element_of_high_priority_rather_than_first_for_float");
+	testStarted("test_8_enqueues_the_characters_elements_in_queue_and_dequeue_the_top_element");
 	setup();
-		test_8_adds_element_of_high_priority_rather_than_first_for_float();
+		test_8_enqueues_the_characters_elements_in_queue_and_dequeue_the_top_element();
 	tearDown();
 	testEnded();
-	testStarted("test_9_adds_element_of_high_priority_rather_than_first_for_character");
+	testStarted("test_9_enqueues_an_String_element_in_empty_queue_and_gives_back_that_element_when_dequeued");
 	setup();
-		test_9_adds_element_of_high_priority_rather_than_first_for_character();
+		test_9_enqueues_an_String_element_in_empty_queue_and_gives_back_that_element_when_dequeued();
 	tearDown();
 	testEnded();
-	testStarted("test_10_adds_element_of_high_priority_rather_than_first_for_string");
+	testStarted("test_10_enqueues_the_String_elements_in_queue_and_dequeue_the_top_element");
 	setup();
-		test_10_adds_element_of_high_priority_rather_than_first_for_string();
-	tearDown();
-	testEnded();
-	testStarted("test_11_adds_element_of_priority_in_between_for_integer_queue");
-	setup();
-		test_11_adds_element_of_priority_in_between_for_integer_queue();
-	tearDown();
-	testEnded();
-	testStarted("test_12_adds_element_of_priority_in_between_for_character_queue");
-	setup();
-		test_12_adds_element_of_priority_in_between_for_character_queue();
-	tearDown();
-	testEnded();
-	testStarted("test_13_removes_element_as_per_given_priority");
-	setup();
-		test_13_removes_element_as_per_given_priority();
-	tearDown();
-	testEnded();
-	testStarted("test_14_cannot_remove_an_element_from_empty_queue");
-	setup();
-		test_14_cannot_remove_an_element_from_empty_queue();
-	tearDown();
-	testEnded();
-	testStarted("test_fail");
-	setup();
-		test_fail();
+		test_10_enqueues_the_String_elements_in_queue_and_dequeue_the_top_element();
 	tearDown();
 	testEnded();
 
@@ -129,8 +104,6 @@ int main(){
 	fixtureTearDown();
 	return 0;
 }
-
-void setup(){}
 
 void fixtureSetup(){}
 

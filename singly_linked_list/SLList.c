@@ -2,8 +2,7 @@
 #include <stdlib.h>
 
 List* create(){
-	List* list;
-	list = (List*)malloc(sizeof(List));
+	List* list =(List*)malloc(sizeof(List));
 	list->head = NULL;
 	list->length = 0;
 	return list;

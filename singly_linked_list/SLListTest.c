@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "customType.h"
 
 //create setup, tearDown, fixtureSetup, fixtureTearDown methods if needed
 
@@ -11,8 +12,6 @@ List* list;
 void tearDown(){
 	free(list);
 }
-
-typedef char String[256];
 
 typedef struct{
     int accountNo;

@@ -1,6 +1,6 @@
-typedef struct node{
+typedef struct Node{
 	void* data;
-	struct node* next;
+	struct Node* next;
 } Node;
 
 typedef struct list{

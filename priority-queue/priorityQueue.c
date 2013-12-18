@@ -1,44 +1,49 @@
 #include "priorityQueue.h"
 #include <stdlib.h>
-#include <stdio.h>
+#include "../singly_linked_list/SLList.h"
+#include "customType.h"
 
-List* create(){
-    List *queue = calloc(sizeof(List),1);
+void* createQueue(){
+    List* queue = calloc(1,sizeof(List));
+    queue->head = NULL;
+    queue->length =0;
     return queue;
-}
+};
+element* createNode(void* data, size_t priority ){
+    element* node = calloc(1, sizeof(element));
+    node->data = data;
+    node->priority = priority;
+    return node;
+};
 
-int frontInsert(Queue *process,List *queue){
-    if(queue->front == NULL)
-        process->next = NULL;
-    else process->next = queue->front;
-    queue->front = process;
-    queue->length++;
-    return queue->length;        
-}
-
-int insertElement(List *queue,Queue *q,compareFunc* compare){
-    Queue *previous,*next,*temp;
-    int result;
-    temp = queue->front;
-    if(queue->length == 0)                
-        return frontInsert(q,queue);
-           if(compare(&q->priority,&temp->priority) < 0) 
-        return frontInsert(q,queue);
-    while(temp != NULL){
-        previous = temp;
-        next = temp->next;
-        temp = temp->next;
-        if(q->priority < next->priority){
-                previous->next = q;
-                    q->next = next;
-                    return ++queue->length;
+int enqueue(void* queueAddress,void* data, size_t priority,compFunc* compare){
+    List* queue = queueAddress;
+    element* node = createNode(data,priority);
+    element* previous,*next,*temp;
+    temp = node->data;
+    if(queue->length == 0 )               
+        return insertNode(queue,queue->length, node);
+    if(compare(&node->priority,&temp->priority) < 0)
+        return insertNode(queue,0, node);
+    while(temp!= NULL){
+        previous = temp->data;
+        temp->data = queue->head->next;
+        if(node->priority < next->priority){
+            previous->data = node;
+            return ++queue->length;
         }
-    };
-    return 0;
-}
-int removeElement(List *queue){
-        if(queue->length == 0) return 1;
-        queue->front = queue->front->next;
-        queue->length--;
-    return 0;
-}
+    }
+    // queue->head->next = temp->data;
+    // previous->data = node;
+    // ++queue->length;
+    return 1;
+};
+
+void* dequeue(void* queueAddress){
+    List* queue = queueAddress;
+    element* head = queue->head->data;
+    if(queue->length == 0) return NULL;
+    queue->head = queue->head->next;
+    queue->length--;
+    return head->data;
+};
