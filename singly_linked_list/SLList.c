@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 List* create(){
-	List* list =(List*)malloc(sizeof(List));
+	List* list = (List*)malloc(sizeof(List));
 	list->head = NULL;
 	list->length = 0;
 	return list;
@@ -33,7 +33,7 @@ int insertNode(List *list,int index,void* data){
     Node *head,*newNode;
     int i;
     if(index <= -1 || index > list->length)
-            return 0;
+        return 0;
     list->length++;
         head = list->head;
     for (i = 0; i < index; ++i){

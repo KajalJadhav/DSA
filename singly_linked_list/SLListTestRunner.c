@@ -114,18 +114,11 @@ int main(){
 		test_13_deletes_element_in_between_of_linked_list();
 	tearDown();
 	testEnded();
-	testStarted("test_fail");
-	setup();
-		test_fail();
-	tearDown();
-	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();
 	return 0;
 }
-
-void setup(){}
 
 void fixtureSetup(){}
 
