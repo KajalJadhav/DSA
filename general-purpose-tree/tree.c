@@ -30,8 +30,11 @@ Tree createTree(compare cmp){
 }
 
 int insertIntoTree(Tree* tree, void* parentData, void* childData) {
-	TreeNode *root = (TreeNode*)tree->root;
+	TreeNode *root;
 	TreeNode *nodeToInsert, *parentNode;
+	if(tree == NULL || childData == NULL)
+		return 0;
+	root = (TreeNode*)tree->root;
 	if(NULL == tree->root){
 		tree->root = createTreeNode(childData, NULL);
 		return 1;
@@ -70,9 +73,10 @@ Iterator getChildren(Tree* tree, void *parent) {
 }
 
 int deleteFromTree(Tree *tree, void *data){
-	TreeNode *root = (TreeNode*)tree->root;
+	TreeNode* root;
 	TreeNode *tn,*parent;
 	Iterator it;
+	root = (TreeNode*)tree->root;
 	tn = getTreeNode(root->children, data, tree->cmp);
 	if(0 == tn->children.length){
 		parent = tn->parent;
@@ -87,11 +91,14 @@ int deleteFromTree(Tree *tree, void *data){
 	return 0;
 }
 
-int searchInTree(Tree* tree, void* searchElement){
-    TreeNode* root = (TreeNode*)(tree->root);
-    if(0 == tree->cmp(searchElement,root->data))
+int searchInTree(Tree* tree, void* elementToSearch){
+    TreeNode* root;
+    if(tree == NULL || elementToSearch == NULL)
+		return 0;
+	root = (TreeNode*)tree->root;
+    if(0 == tree->cmp(elementToSearch,root->data))
     	return 1;
-    if(NULL != getTreeNode(root->children,searchElement,tree->cmp))
+    if(NULL != getTreeNode(root->children,elementToSearch,tree->cmp))
         return 1;
     return 0;
 }
