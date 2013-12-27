@@ -18,3 +18,4 @@ int insertIntoTree(Tree* tree, void* parentData, void* data);
 Iterator getChildren(Tree* tree, void* parentData);
 int deleteFromTree(Tree* tree, void* data);
 int searchInTree(Tree* tree, void* data);
+void disposeTree(Tree* tree);

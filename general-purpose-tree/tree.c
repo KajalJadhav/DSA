@@ -3,15 +3,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-TreeNode* getTreeNode(DoubleList list,void *dataToFind,compare cmp){
-	Iterator it = getIterator(&list);
+TreeNode* getTreeNode(DoubleList *list,void *dataToFind,compare cmp){
+	Iterator it = getIterator(list);
 	TreeNode *treenode;
 	while(it.hasNext(&it)){
 		treenode = (TreeNode*)it.next(&it);
 		if(0 == cmp(treenode->data,dataToFind))
 			return treenode;
 		if(treenode->children.head)
-			return getTreeNode(treenode->children, dataToFind, cmp);
+			return getTreeNode(&treenode->children, dataToFind, cmp);
 	}
 	return NULL;
 }
@@ -45,7 +45,7 @@ int insertIntoTree(Tree* tree, void* parentData, void* childData) {
 		insert(&root->children, 0, nodeToInsert);
 		return 1;
 	}
-	parentNode = getTreeNode(root->children, parentData, tree->cmp);
+	parentNode = getTreeNode(&root->children, parentData, tree->cmp);
 	nodeToInsert = createTreeNode(childData, parentNode);
 	insert(&parentNode->children, 0, nodeToInsert);
 	return 1;
@@ -66,7 +66,7 @@ Iterator getChildren(Tree* tree, void *parent) {
 	if(0 == tree->cmp(root->data,parent))
 		temp = root;
 	else 
-		temp = getTreeNode(root->children, parent, tree->cmp);
+		temp = getTreeNode(&root->children, parent, tree->cmp);
 	it = getIterator(&temp->children);
 	it.next = &treeNext;
 	return it;
@@ -77,7 +77,7 @@ int deleteFromTree(Tree *tree, void *data){
 	TreeNode *tn,*parent;
 	Iterator it;
 	root = (TreeNode*)tree->root;
-	tn = getTreeNode(root->children, data, tree->cmp);
+	tn = getTreeNode(&root->children, data, tree->cmp);
 	if(0 == tn->children.length){
 		parent = tn->parent;
 		it = getIterator(&parent->children);
@@ -98,7 +98,11 @@ int searchInTree(Tree* tree, void* elementToSearch){
 	root = (TreeNode*)tree->root;
     if(0 == tree->cmp(elementToSearch,root->data))
     	return 1;
-    if(NULL != getTreeNode(root->children,elementToSearch,tree->cmp))
+    if(NULL != getTreeNode(&root->children,elementToSearch,tree->cmp))
         return 1;
     return 0;
+}
+
+void disposeTree(Tree* tree){
+    free(tree->root);
 }
