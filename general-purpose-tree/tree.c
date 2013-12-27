@@ -1,108 +1,122 @@
 #include "tree.h"
-#include "internalTree.h"
 #include <stdlib.h>
-#include <stdio.h>
+#include "internalTree.h"
 
-TreeNode* getTreeNode(DoubleList *list,void *dataToFind,compare cmp){
-	Iterator it = getIterator(list);
-	TreeNode *treenode;
-	while(it.hasNext(&it)){
-		treenode = (TreeNode*)it.next(&it);
-		if(0 == cmp(treenode->data,dataToFind))
-			return treenode;
-		if(treenode->children.head)
-			return getTreeNode(&treenode->children, dataToFind, cmp);
+void* getTreeNodeByData(List *list,void* data,comparator *comp){
+    Iterator it = getIterator(list);
+    TreeNode *treeNode;
+    while(it.hasNext(&it)){
+        treeNode = (TreeNode*)it.next(&it);
+        if(0 == comp(treeNode->data,data))
+                return treeNode;
+        if(treeNode->child->head != NULL)
+                return getTreeNodeByData(treeNode->child,data,comp);
+    }
+    return NULL;
+}
+
+TreeNode* createTreeNode(TreeNode* parent,void* data){
+    TreeNode* treeNode = calloc(1,sizeof(TreeNode));
+    treeNode->child = create();
+    treeNode->parent = parent;
+    treeNode->data = data;
+    return treeNode;
+}
+
+Tree createTree(comparator* areEqual){
+    Tree tree = {NULL,areEqual};
+    return tree;
+}
+
+void* getRootData(Tree *tree){
+    TreeNode tempTree = *(TreeNode*)tree->root;
+    return tempTree.data; 
+}
+
+void *nextSibling(Iterator *it){
+    TreeNode *node;
+    Iterator treeIterator = getIterator(it->list);
+    treeIterator.position = it->position;
+    node = treeIterator.next(&treeIterator);
+    it->position++;
+    return node->data;
+}
+
+Iterator getChildren(Tree *tree, void *parentData){
+    Iterator it;
+    TreeNode *parentNode,*rootNode = tree->root;
+    if(tree->comp(rootNode->data,parentData)==0)
+        parentNode = rootNode;
+    else
+        parentNode = getTreeNodeByData(rootNode->child, parentData,tree->comp);
+    it = getIterator(parentNode->child);
+    it.next = &nextSibling;
+    return it;
+}
+
+int insertInTree(Tree* tree, void *parentData, void *dataToInsert){
+    TreeNode *parentNode, *newNode,*rootNode;
+    if(tree == NULL || dataToInsert == NULL) return 0;
+    if(NULL == parentData){
+        tree->root = createTreeNode(NULL, dataToInsert);
+        return 1;
+    }
+    rootNode = (TreeNode*)tree->root;
+    if(0 == tree->comp(rootNode->data,parentData)){
+        newNode = createTreeNode(rootNode, dataToInsert);
+        return insertNode(rootNode->child,rootNode->child->length, newNode);
 	}
-	return NULL;
-}
+    parentNode = getTreeNodeByData(rootNode->child,parentData, tree->comp);
+    newNode = createTreeNode(parentNode, dataToInsert);
+    return insertNode(parentNode->child,parentNode->child->length, newNode);
+};
 
-TreeNode* createTreeNode(void *data,TreeNode *parent){
-	TreeNode *treenode = malloc(sizeof(TreeNode));
-	treenode->data = data;
-	treenode->parent = parent;
-	treenode->children = create();
-	return treenode;
-}
-
-Tree createTree(compare cmp){
-	Tree tree = {cmp,NULL};
-	return tree;
-}
-
-int insertIntoTree(Tree* tree, void* parentData, void* childData) {
-	TreeNode *root;
-	TreeNode *nodeToInsert, *parentNode;
-	if(tree == NULL || childData == NULL)
-		return 0;
-	root = (TreeNode*)tree->root;
-	if(NULL == tree->root){
-		tree->root = createTreeNode(childData, NULL);
-		return 1;
-	}
-	if(0 == tree->cmp(root->data,parentData)){
-		parentNode = root;
-		nodeToInsert = createTreeNode(childData, parentNode);
-		insert(&root->children, 0, nodeToInsert);
-		return 1;
-	}
-	parentNode = getTreeNode(&root->children, parentData, tree->cmp);
-	nodeToInsert = createTreeNode(childData, parentNode);
-	insert(&parentNode->children, 0, nodeToInsert);
-	return 1;
-}
-
-void* treeNext(Iterator *it){
-	TreeNode *node;
-	Iterator treeIterator = getIterator(it->list);
-	treeIterator.position = it->position;
-	node = treeIterator.next(&treeIterator);
-	it->position++;
-	return node->data;
-}
-
-Iterator getChildren(Tree* tree, void *parent) {
-	TreeNode *temp,*root = (TreeNode*)tree->root;
-	Iterator it;
-	if(0 == tree->cmp(root->data,parent))
-		temp = root;
-	else 
-		temp = getTreeNode(&root->children, parent, tree->cmp);
-	it = getIterator(&temp->children);
-	it.next = &treeNext;
-	return it;
-}
-
-int deleteFromTree(Tree *tree, void *data){
-	TreeNode* root;
-	TreeNode *tn,*parent;
-	Iterator it;
-	root = (TreeNode*)tree->root;
-	tn = getTreeNode(&root->children, data, tree->cmp);
-	if(0 == tn->children.length){
-		parent = tn->parent;
-		it = getIterator(&parent->children);
-		while(it.hasNext(&it)){
-			if(tree->cmp(data,it.next(&it)))
-				break;
-		}
-		delete(&parent->children, it.position - 1);
-		return 1;
-	}
-	return 0;
-}
-
-int searchInTree(Tree* tree, void* elementToSearch){
-    TreeNode* root;
+int search(Tree *tree,void* elementToSearch){
+    TreeNode *rootNode;
     if(tree == NULL || elementToSearch == NULL)
-		return 0;
-	root = (TreeNode*)tree->root;
-    if(0 == tree->cmp(elementToSearch,root->data))
-    	return 1;
-    if(NULL != getTreeNode(&root->children,elementToSearch,tree->cmp))
+        return 0;
+    rootNode = tree->root;
+    if(tree->comp(elementToSearch,rootNode->data) == 0)
+        return 1;
+    if(getTreeNodeByData(rootNode->child, elementToSearch,tree->comp) != NULL)
         return 1;
     return 0;
 }
 
+int deleteFromTree(Tree *tree,void* dataToRemove){
+    TreeNode *rootNode,*nodeToDelete,*parentNode;
+    Iterator it;
+    if(tree == NULL || dataToRemove == NULL) return 0;
+    rootNode = tree->root;
+    nodeToDelete = getTreeNodeByData(rootNode->child, dataToRemove, tree->comp);
+    if(nodeToDelete == NULL || nodeToDelete->child->length != 0)        return 0;
+    parentNode = nodeToDelete->parent;
+    it = getIterator(parentNode->child);
+    while(it.hasNext(&it)){
+        if(tree->comp(it.next(&it),nodeToDelete) == 0){
+                deleteNode(parentNode->child,it.position);
+                break;
+        }
+    }
+    return 1;
+}
+
+void disposeNodes(List *list){
+    Iterator it ;
+    List* childList;
+    TreeNode *treeNode;
+    it = getIterator(list);
+    while(it.hasNext(&it)){
+        treeNode = (TreeNode*)it.next(&it);
+        childList = (List*)(treeNode->child);
+        disposeNodes(childList);
+    }
+}
+
 void disposeTree(Tree* tree){
-    free(tree->root);
+    TreeNode *root = tree->root;
+    if(root != NULL){
+        disposeNodes(root->child);
+        free(root);
+    }
 }

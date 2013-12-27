@@ -1,7 +1,11 @@
-#include "include/dList.h"
+#include "include/SLList.h"
 
-typedef struct treenode{
-	void* data;
-	struct treenode* parent;
-	DoubleList children;
+typedef struct TreeNode{
+    struct TreeNode* parent;
+    List *child;
+    void* data;
 } TreeNode;
+
+TreeNode* createTreeNode(TreeNode* tree,void* parent);
+
+void *nextSibling(Iterator *it);

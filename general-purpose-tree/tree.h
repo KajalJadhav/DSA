@@ -1,21 +1,23 @@
 #include "tree_iterator.h"
 #include "include/iterator.h"
 
-#ifndef _COMPARE_
-#define _COMPARE_
+typedef int comparator(void* nodeData,void* parentData);
 
-typedef int (*compare)(void* element1, void* element2);
-
-#endif
-
-typedef struct {
-	compare cmp;
-	void *root;
+typedef struct{
+    void* root;
+    comparator *comp;
 } Tree;
 
-Tree createTree(compare cmp);
-int insertIntoTree(Tree* tree, void* parentData, void* data);
-Iterator getChildren(Tree* tree, void* parentData);
-int deleteFromTree(Tree* tree, void* data);
-int searchInTree(Tree* tree, void* data);
+Tree createTree(comparator* areEqual);
+
+int insertInTree(Tree *tree, void *parentData, void *data);
+
+void* getRootData(Tree *tree);
+
+Iterator getChildren(Tree *tree, void *parentData);
+
+int search(Tree *tree,void* elementToSearch);
+
+int deleteFromTree(Tree *tree,void* dataToRemove);
+
 void disposeTree(Tree* tree);
