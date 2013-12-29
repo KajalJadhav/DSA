@@ -89,6 +89,16 @@ int main(){
 		test_sorts_an_array_of_characters_which_is_already_sorted();
 	tearDown();
 	testEnded();
+	testStarted("test_sorts_an_array_of_Strings");
+	setup();
+		test_sorts_an_array_of_Strings();
+	tearDown();
+	testEnded();
+	testStarted("test_sorts_an_array_of_Strings_which_are_already_sorted");
+	setup();
+		test_sorts_an_array_of_Strings_which_are_already_sorted();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();

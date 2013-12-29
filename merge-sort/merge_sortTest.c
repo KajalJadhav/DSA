@@ -2,6 +2,8 @@
 #include "merge_sort.h"
 #include <string.h>
 
+typedef char String[100];
+
 //create setup, tearDown, fixtureSetup, fixtureTearDown methods if needed
 
 int compareInts(void* a, void* b){
@@ -18,6 +20,10 @@ int compareDoubles(void* a, void* b){
 
 int compareChars(void* a, void* b){
     return (*(char*)a < *(char*)b);
+}
+
+int compareStrings(void* a, void* b){
+    return 0 < strcmp(a,b) ? 0 : 1;
 }
 
 void test_sorts_an_array_of_integers(){
@@ -81,21 +87,41 @@ void test_sorts_an_array_of_doubles_which_is_already_sorted(){
 }
 
 void test_sorts_an_array_of_characters(){
-    char chars[8] = {'a','d','c','h','f','g','b','e'};
+    char actual[8] = {'a','d','c','h','f','g','b','e'};
     char expected[8] = {'a','b','c','d','e','f','g','h'};
     int i;
-    mergeSort(chars, 0, 7,sizeof(char),compareChars);
+    mergeSort(actual, 0, 7,sizeof(char),compareChars);
     for (i = 0; i < 8; ++i){
-        ASSERT(expected[i] == chars[i]);
+        ASSERT(expected[i] == actual[i]);
     }
 }
 
 void test_sorts_an_array_of_characters_which_is_already_sorted(){
-    char chars[8] = {'a','b','c','d','e','f','g','h'};
+    char actual[8] = {'a','b','c','d','e','f','g','h'};
     char expected[8] = {'a','b','c','d','e','f','g','h'};
     int i;
-    mergeSort(chars, 0, 7,sizeof(char),compareChars);
+    mergeSort(actual, 0, 7,sizeof(char),compareChars);
     for (i = 0; i < 8; ++i){
-        ASSERT(expected[i] == chars[i]);
+        ASSERT(expected[i] == actual[i]);
+    }
+}
+
+void test_sorts_an_array_of_Strings(){
+    String actual[5] = {"digvijay","manali","kajal","taj","shital"};
+    String expected[5] = {"digvijay","kajal","manali","shital","taj"};
+    int i;
+    mergeSort(actual, 0, 4,sizeof(String),compareStrings);
+    for (i = 0; i < 5; ++i){
+        ASSERT(0 == strcmp(expected[i],actual[i]));
+    }
+}
+
+void test_sorts_an_array_of_Strings_which_are_already_sorted(){
+    String actual[5] = {"digvijay","kajal","manali","shital","taj"};
+    String expected[5] = {"digvijay","kajal","manali","shital","taj"};
+    int i;
+    mergeSort(actual, 0, 4,sizeof(String),compareStrings);
+    for (i = 0; i < 5; ++i){
+        ASSERT(0 == strcmp(expected[i],actual[i]));
     }
 }
