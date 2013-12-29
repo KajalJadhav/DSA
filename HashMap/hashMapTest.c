@@ -103,3 +103,8 @@ void test_tries_to_remove_element_from_hashMap_which_is_not_present(){
 	ASSERT(putValue(&hashmap,&key,&value) == SUCCESS);
 	ASSERT(removeFromHashMap(&hashmap,&KeyToRemove) == FAIL);
 }
+
+void test_removes_from_hashMap_when_hashMap_is_NULL(){
+	int KeyToRemove = 3;
+	ASSERT(removeFromHashMap(NULL,&KeyToRemove) == FAIL);
+}

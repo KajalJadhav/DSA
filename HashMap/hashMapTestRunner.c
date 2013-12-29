@@ -109,6 +109,11 @@ int main(){
 		test_tries_to_remove_element_from_hashMap_which_is_not_present();
 	tearDown();
 	testEnded();
+	testStarted("test_removes_from_hashMap_when_hashMap_is_NULL");
+	setup();
+		test_removes_from_hashMap_when_hashMap_is_NULL();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();
