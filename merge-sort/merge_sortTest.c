@@ -125,3 +125,13 @@ void test_sorts_an_array_of_Strings_which_are_already_sorted(){
         ASSERT(0 == strcmp(expected[i],actual[i]));
     }
 }
+
+void test_sorts_worst_case_array(){
+    int actual[8] = {8,7,6,5,4,3,2,1};
+    int expected[8] = {1,2,3,4,5,6,7,8};
+    int i;
+    mergeSort(actual, 0, 7,sizeof(int),compareInts);
+    for (i = 0; i < 8; ++i){
+        ASSERT(expected[i] == actual[i]);
+    }
+}

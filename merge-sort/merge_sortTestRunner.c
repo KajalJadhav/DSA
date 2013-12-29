@@ -99,6 +99,11 @@ int main(){
 		test_sorts_an_array_of_Strings_which_are_already_sorted();
 	tearDown();
 	testEnded();
+	testStarted("test_sorts_worst_case_array");
+	setup();
+		test_sorts_worst_case_array();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();
