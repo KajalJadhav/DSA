@@ -94,6 +94,11 @@ int main(){
 		test_getValue_when_hashmap_is_NULL();
 	tearDown();
 	testEnded();
+	testStarted("test_getValue_when_key_is_NULL");
+	setup();
+		test_getValue_when_key_is_NULL();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();

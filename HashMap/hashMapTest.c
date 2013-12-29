@@ -80,3 +80,8 @@ void test_getValue_when_hashmap_is_NULL(){
 	int key = 2;
 	ASSERT(getValue(NULL, &key) == NULL);
 }
+
+void test_getValue_when_key_is_NULL(){
+	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
+	ASSERT(getValue(&hashmap, NULL) == NULL);
+}
