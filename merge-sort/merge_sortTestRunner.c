@@ -59,9 +59,14 @@ int main(){
 		test_sorts_an_array_of_integers_which_is_already_sorted();
 	tearDown();
 	testEnded();
-	testStarted("test_fail");
+	testStarted("test_sorts_an_array_of_floats");
 	setup();
-		test_fail();
+		test_sorts_an_array_of_floats();
+	tearDown();
+	testEnded();
+	testStarted("test_sorts_an_array_of_floats_which_is_already_sorted");
+	setup();
+		test_sorts_an_array_of_floats_which_is_already_sorted();
 	tearDown();
 	testEnded();
 
