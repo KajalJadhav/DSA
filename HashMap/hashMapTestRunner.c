@@ -99,6 +99,11 @@ int main(){
 		test_getValue_when_key_is_NULL();
 	tearDown();
 	testEnded();
+	testStarted("test_removes_from_hashMap");
+	setup();
+		test_removes_from_hashMap();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();

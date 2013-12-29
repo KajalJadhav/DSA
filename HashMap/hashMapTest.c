@@ -85,3 +85,12 @@ void test_getValue_when_key_is_NULL(){
 	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
 	ASSERT(getValue(&hashmap, NULL) == NULL);
 }
+
+void test_removes_from_hashMap(){
+	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
+	int value = 20;
+	int key = 2;
+	ASSERT(putValue(&hashmap,&key,&value) == SUCCESS);
+	ASSERT(removeFromHashMap(&hashmap,&key) == SUCCESS);
+	ASSERT(getValue(&hashmap,&key) == NULL);
+}

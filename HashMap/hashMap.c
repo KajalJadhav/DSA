@@ -81,3 +81,31 @@ void* getValue(Hashmap *hash, void *key){
 		return 0;
 	return element->value;
 }
+
+int getIndexFromList(List *list,void* data,Compare *compare){
+    Iterator it = getIteratorForList(list);
+    while(it.hasNext(&it)){
+        if(compare(it.next(&it),data) == 0)
+            return it.position-1;
+    }
+    return -1;
+}
+
+int compareKeysOfHashElements(void* element1,void* element2){
+	HashElement *first,*second;
+	first = (HashElement*)element1;
+	second = (HashElement*)element2;
+	return first->key - second->key;
+}
+
+int removeFromHashMap(Hashmap *hash,void* key){
+	List* list;
+	HashElement* element;
+	int index;
+	if(hash == NULL || key == NULL)
+		return 0;
+	list = getListFromHashMap(hash,key);
+	element = getElementFromList(list,key,hash->compare);
+	index = getIndexFromList(list,element,&compareKeysOfHashElements);
+	return deleteNode(list,index);
+}
