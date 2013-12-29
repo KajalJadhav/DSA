@@ -94,3 +94,12 @@ void test_removes_from_hashMap(){
 	ASSERT(removeFromHashMap(&hashmap,&key) == SUCCESS);
 	ASSERT(getValue(&hashmap,&key) == NULL);
 }
+
+void test_tries_to_remove_element_from_hashMap_which_is_not_present(){
+	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
+	int value = 20;
+	int key = 2;
+	int KeyToRemove = 3;
+	ASSERT(putValue(&hashmap,&key,&value) == SUCCESS);
+	ASSERT(removeFromHashMap(&hashmap,&KeyToRemove) == FAIL);
+}
