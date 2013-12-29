@@ -69,6 +69,16 @@ int main(){
 		test_sorts_an_array_of_floats_which_is_already_sorted();
 	tearDown();
 	testEnded();
+	testStarted("test_sorts_an_array_of_doubles");
+	setup();
+		test_sorts_an_array_of_doubles();
+	tearDown();
+	testEnded();
+	testStarted("test_sorts_an_array_of_doubles_which_is_already_sorted");
+	setup();
+		test_sorts_an_array_of_doubles_which_is_already_sorted();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();
