@@ -59,6 +59,11 @@ int main(){
 		test_put_two_elements_in_same_slot_of_hashMap();
 	tearDown();
 	testEnded();
+	testStarted("test_put_multiple_elements_in_different_slots_of_hashMap");
+	setup();
+		test_put_multiple_elements_in_different_slots_of_hashMap();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();

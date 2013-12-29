@@ -28,3 +28,14 @@ void test_put_two_elements_in_same_slot_of_hashMap(){
 	ASSERT(putValue(&hashmap,&keys[0],&values[0]) == SUCCESS);
 	ASSERT(putValue(&hashmap,&keys[1],&values[1]) == SUCCESS);
 }
+
+void test_put_multiple_elements_in_different_slots_of_hashMap(){
+	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
+	int values[] = {100,200,300,400,500};
+	int keys[] = {11,12,13,14,15};
+	ASSERT(putValue(&hashmap,&keys[0],&values[0]) == SUCCESS);
+	ASSERT(putValue(&hashmap,&keys[1],&values[1]) == SUCCESS);
+	ASSERT(putValue(&hashmap,&keys[2],&values[2]) == SUCCESS);
+	ASSERT(putValue(&hashmap,&keys[3],&values[3]) == SUCCESS);
+	ASSERT(putValue(&hashmap,&keys[4],&values[4]) == SUCCESS);
+}
