@@ -108,3 +108,8 @@ void test_removes_from_hashMap_when_hashMap_is_NULL(){
 	int KeyToRemove = 3;
 	ASSERT(removeFromHashMap(NULL,&KeyToRemove) == FAIL);
 }
+
+void test_remove_from_hashMap_when_element_to_remove_is_NULL(){
+	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
+	ASSERT(removeFromHashMap(&hashmap,NULL) == FAIL);
+}

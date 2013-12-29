@@ -114,6 +114,11 @@ int main(){
 		test_removes_from_hashMap_when_hashMap_is_NULL();
 	tearDown();
 	testEnded();
+	testStarted("test_remove_from_hashMap_when_element_to_remove_is_NULL");
+	setup();
+		test_remove_from_hashMap_when_element_to_remove_is_NULL();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();
