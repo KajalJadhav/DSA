@@ -66,3 +66,12 @@ void test_getValue_when_element_present(){
 	putValue(&hashmap,&key,&value);
 	ASSERT(getValue(&hashmap,&key) == &value);
 }
+
+void test_getValue_when_element_which_is_not_present(){
+	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
+	int value = 100;
+	int key = 11;
+	int keyToSearch = 1;
+	putValue(&hashmap,&key,&value);
+	ASSERT(getValue(&hashmap,&keyToSearch) == NULL);
+}
