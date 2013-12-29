@@ -75,3 +75,8 @@ void test_getValue_when_element_which_is_not_present(){
 	putValue(&hashmap,&key,&value);
 	ASSERT(getValue(&hashmap,&keyToSearch) == NULL);
 }
+
+void test_getValue_when_hashmap_is_NULL(){
+	int key = 2;
+	ASSERT(getValue(NULL, &key) == NULL);
+}

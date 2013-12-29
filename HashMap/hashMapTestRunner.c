@@ -89,6 +89,11 @@ int main(){
 		test_getValue_when_element_which_is_not_present();
 	tearDown();
 	testEnded();
+	testStarted("test_getValue_when_hashmap_is_NULL");
+	setup();
+		test_getValue_when_hashmap_is_NULL();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();
