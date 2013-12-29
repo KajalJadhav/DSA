@@ -57,8 +57,8 @@ HashElement *createHashElement(void* key,void*value){
 int putValue(Hashmap* hash,void* key,void* value){
 	List *list;
 	HashElement *hashElement;
-	if(hash == NULL || key == NULL) return 0;
-
+	if(hash == NULL || key == NULL) 
+		return 0;
 	list = getListFromHashMap(hash, key);
 	hashElement = getElementFromList(list,key,hash->compare);
 	
@@ -68,4 +68,16 @@ int putValue(Hashmap* hash,void* key,void* value){
 	}
 	hashElement = createHashElement(key,value);
 	return insertNode(list,list->length, hashElement);
+}
+
+void* getValue(Hashmap *hash, void *key){
+	List* list;
+	HashElement* element;
+	if(hash == NULL || key == NULL)
+		return 0;
+	list = getListFromHashMap(hash,key);
+	element = getElementFromList(list,key,hash->compare);
+	if(element == NULL) 
+		return 0;
+	return element->value;
 }
