@@ -64,6 +64,11 @@ int main(){
 		test_put_multiple_elements_in_different_slots_of_hashMap();
 	tearDown();
 	testEnded();
+	testStarted("test_do_not_put_when_hashmap_is_NULL");
+	setup();
+		test_do_not_put_when_hashmap_is_NULL();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();

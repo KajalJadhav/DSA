@@ -1,5 +1,6 @@
 #include "testUtils.h"
 #include "hashMap.h"
+#include <stdlib.h>
 
 //create setup, tearDown, fixtureSetup, fixtureTearDown methods if needed
 
@@ -38,4 +39,10 @@ void test_put_multiple_elements_in_different_slots_of_hashMap(){
 	ASSERT(putValue(&hashmap,&keys[2],&values[2]) == SUCCESS);
 	ASSERT(putValue(&hashmap,&keys[3],&values[3]) == SUCCESS);
 	ASSERT(putValue(&hashmap,&keys[4],&values[4]) == SUCCESS);
+}
+
+void test_do_not_put_when_hashmap_is_NULL(){
+	int value = 20;
+	int key = 2;
+	ASSERT(putValue(NULL,&key,&value) == FAIL);
 }
