@@ -15,8 +15,8 @@ int keyGenerator(void* key){
 }
 
 void test_put_one_element_into_hashmap(){
-	Hashmap map = createHashmap(&compareKeys, &keyGenerator);
+	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
     int value = 20;
     int key = 2;
-    ASSERT(put(&map,&key,&value) == SUCCESS);
+    ASSERT(putValue(&hashmap,&key,&value) == SUCCESS);
 }
