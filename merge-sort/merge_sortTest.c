@@ -16,6 +16,10 @@ int compareDoubles(void* a, void* b){
     return (*(double*)a < *(double*)b);
 }
 
+int compareChars(void* a, void* b){
+    return (*(char*)a < *(char*)b);
+}
+
 void test_sorts_an_array_of_integers(){
     int actual[8] = {1,4,3,8,6,7,2,5};
     int expected[8] = {1,2,3,4,5,6,7,8};
@@ -73,5 +77,25 @@ void test_sorts_an_array_of_doubles_which_is_already_sorted(){
     mergeSort(actual, 0, 5,sizeof(double),compareDoubles);
     for (i = 0; i < 6; ++i){
         ASSERT(expected[i] == actual[i]);
+    }
+}
+
+void test_sorts_an_array_of_characters(){
+    char chars[8] = {'a','d','c','h','f','g','b','e'};
+    char expected[8] = {'a','b','c','d','e','f','g','h'};
+    int i;
+    mergeSort(chars, 0, 7,sizeof(char),compareChars);
+    for (i = 0; i < 8; ++i){
+        ASSERT(expected[i] == chars[i]);
+    }
+}
+
+void test_sorts_an_array_of_characters_which_is_already_sorted(){
+    char chars[8] = {'a','b','c','d','e','f','g','h'};
+    char expected[8] = {'a','b','c','d','e','f','g','h'};
+    int i;
+    mergeSort(chars, 0, 7,sizeof(char),compareChars);
+    for (i = 0; i < 8; ++i){
+        ASSERT(expected[i] == chars[i]);
     }
 }
