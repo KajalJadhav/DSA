@@ -69,6 +69,11 @@ int main(){
 		test_do_not_put_when_hashmap_is_NULL();
 	tearDown();
 	testEnded();
+	testStarted("test_do_not_put_when_key_is_NULL");
+	setup();
+		test_do_not_put_when_key_is_NULL();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();

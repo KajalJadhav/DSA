@@ -46,3 +46,9 @@ void test_do_not_put_when_hashmap_is_NULL(){
 	int key = 2;
 	ASSERT(putValue(NULL,&key,&value) == FAIL);
 }
+
+void test_do_not_put_when_key_is_NULL(){
+	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
+	int value = 20;
+	ASSERT(putValue(&hashmap,NULL,&value) == FAIL);
+}
