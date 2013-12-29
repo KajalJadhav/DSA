@@ -9,7 +9,7 @@ typedef int (*compare)(void* element1, void* element2);
 
 typedef void ForEach(void* data);
 
-ArrayList create(int capacity);
+ArrayList createArrayList(int capacity);
 
 int insert(ArrayList *list, int index, void* data);
 
