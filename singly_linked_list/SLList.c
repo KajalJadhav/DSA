@@ -1,7 +1,7 @@
 #include "SLList.h"
 #include <stdlib.h>
 
-List* create(){
+List* createList(){
 	List* list = (List*)malloc(sizeof(List));
 	list->head = NULL;
 	list->length = 0;
@@ -72,3 +72,42 @@ int deleteNode(List* list,int index){
     list->length--;
     return 1;
 };
+
+int isNextNodePresent(Iterator *it){
+    List list;
+    if(NULL == it->list) return 0;
+    list = *(List*)it->list;
+    if(it->position == list.length) return 0;
+    return 1;
+}
+
+void* nextNodeInList(Iterator *it){
+    int i;
+    Node* currentNode;
+    if(isNextNodePresent(it) == 0) return NULL;
+    currentNode = ((List*)(it->list))->head;
+    for(i = 0; i<it->position; i++){
+            currentNode = currentNode->next;
+    };
+    it->position++;
+    return currentNode->data;
+}
+
+Iterator getIteratorForList(List *list){
+    Iterator it;
+    it.list = list;
+    it.position = 0;
+    it.hasNext = &isNextNodePresent;
+    it.next = &nextNodeInList;
+    return it;
+}
+
+void disposeList(List *list){
+    Node *nextNode;
+    if(list->head == NULL)
+        return;
+    nextNode = list->head;
+    list->head = nextNode->next;
+    free(nextNode);
+    disposeList(list);
+}

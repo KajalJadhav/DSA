@@ -1,6 +1,5 @@
 #include "testUtils.h"
 #include "SLList.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "customType.h"
@@ -10,10 +9,11 @@
 List* list;
 
 void setup(){
-	list = create();
+	list = createList();
 }
+
 void tearDown(){
-	free(list);
+	disposeList(list);
 }
 
 typedef struct{
@@ -34,32 +34,19 @@ void test_2_inserts_element_as_head_of_linked_list(){
 	int num = 10;
 	insertNode(list,0,&num);
 	ASSERT(10 == *(int*)list->head->data);
-	// ASSERT(NULL == list->head->next);
-	// ASSERT(1 == list->length);
 };
 
 void test_3_inserts_element_at_the_end_of_linked_list(){
-	int value;
+	int value[] = {10,20,30};
 	Node *result1,*result2;
-	value = 10;
-	insertNode(list,0,&value);
+	insertNode(list,0,&value[0]);
 	ASSERT(10 == *(int*)list->head->data);
-	// ASSERT(NULL == list->head->next);
-	// ASSERT(1 == list->length);
-
-	value = 20;
-	insertNode(list,1,&value);
+	insertNode(list,1,&value[1]);
 	result1 = list->head->next;
 	ASSERT(20 == *(int*)result1->data);
-	// ASSERT(NULL == result1->next);
-	// ASSERT(2 == list->length);
-
-	value = 30;
-	insertNode(list,2,&value);
+	insertNode(list,2,&value[2]);
 	result2 = result1->next;
 	ASSERT(30 == *(int*)result2->data);
-	// ASSERT(NULL == result2->next);
-	// ASSERT(3 == list->length);
 };
 
 void test_4_inserts_element_at_middle_of_linked_list(){
@@ -69,15 +56,11 @@ void test_4_inserts_element_at_middle_of_linked_list(){
 	nums[1] = 20;
 	nums[2] = 30;
 	nums[3] = 40;
-	list = create();
+	list = createList();
 	insertNode(list,0,nums+0);
-	// ASSERT(1 == list->length);
 	insertNode(list,1,nums+2);
-	// ASSERT(2 == list->length);
 	insertNode(list,2,nums+3);
-	// ASSERT(3 == list->length);
 	insertNode(list,1,nums+1);
-	// ASSERT(4 == list->length);
 	second = list->head->next;
 	third = second->next;
 	fourth = third->next;
@@ -94,13 +77,10 @@ void test_5_inserts_multiple_elements_at_head_of_linked_list(){
 	nums[2] = 30;
 	insertNode(list,0,nums);
 	ASSERT(10 == *(int*)list->head->data);
-	// ASSERT(1 == list->length);
 	insertNode(list,0,nums+1);
 	ASSERT(20 == *(int*)list->head->data);
-	// ASSERT(2 == list->length);
 	insertNode(list,0,nums+2);
 	ASSERT(30 == *(int*)list->head->data);
-	// ASSERT(3 == list->length);
 };
 
 void test_6_inserts_double_element_in_the_linked_list(){
@@ -110,12 +90,9 @@ void test_6_inserts_double_element_in_the_linked_list(){
 	nums[2] = 3.0;
 	insertNode(list,0,&nums[0]);
 	ASSERT(1.0 == *(double*)list->head->data);
-	// ASSERT(1 == list->length);
 	insertNode(list,1,&nums[1]);
 	ASSERT(2.0 == *(double*)list->head->next->data);
-	// ASSERT(2 == list->length);
 	insertNode(list,2,&nums[2]);
-	// ASSERT(3 == list->length);
 };
 
 void test_7_inserts_character_elements_in_the_linked_list(){
@@ -125,12 +102,9 @@ void test_7_inserts_character_elements_in_the_linked_list(){
 	chars[2] = 'c';
 	insertNode(list,0,&chars[0]);
 	ASSERT('a' == *(char*)list->head->data);
-	// ASSERT(1 == list->length);
 	insertNode(list,1,&chars[1]);
 	ASSERT('b' == *(char*)list->head->next->data);
-	// ASSERT(2 == list->length);
 	insertNode(list,2,&chars[2]);
-	// ASSERT(3 == list->length);
 };
 
 void test_8_inserts_the_string_elements_in_the_linked_list(){
@@ -140,13 +114,10 @@ void test_8_inserts_the_string_elements_in_the_linked_list(){
     strcpy(names[2], "Shital");
     insertNode(list, 0, &names[0]);
     ASSERT(0 == strcmp("Kajal",(char*)list->head->data));
-    // ASSERT(1 == list->length);
     insertNode(list, 1, &names[1]);
     ASSERT(0 == strcmp("Manali",(char*)list->head->next->data));
-    // ASSERT(2 == list->length);
     insertNode(list, 1, &names[2]);
     ASSERT(0 == strcmp("Manali",(char*)list->head->next->data));
-    // ASSERT(3 == list->length);
 };
 
 void test_9_inserts_the_structures_in_the_linked_list(){
@@ -156,13 +127,10 @@ void test_9_inserts_the_structures_in_the_linked_list(){
     accounts[2].accountNo = 102; accounts[2].balance = 3000;
     insertNode(list,0,&accounts[0]);
     ASSERT(areAccountsEqual(accounts[0], *(Account*)list->head->data));
-    // ASSERT(1 == list->length);
     insertNode(list,1,&accounts[1]);
     ASSERT(areAccountsEqual(accounts[1], *(Account*)list->head->next->data));
-    // ASSERT(2 == list->length);
     insertNode(list,1,&accounts[2]);
     ASSERT(areAccountsEqual(accounts[1], *(Account*)list->head->next->data));
-    // ASSERT(3 == list->length);
 };
 
 void test_10_deletes_element_from_list_which_has_only_one_element(){
@@ -170,8 +138,6 @@ void test_10_deletes_element_from_list_which_has_only_one_element(){
     *nums = 10;
     insertNode(list, 0, &nums);
     ASSERT(deleteNode(list, 0));
-    // ASSERT(0 == list->length);
-    // ASSERT(NULL == list->head);
 };
 
 void test_11_deletes_first_element_from_list_when_more_than_one_elements_are_there(){
@@ -182,10 +148,8 @@ void test_11_deletes_first_element_from_list_when_more_than_one_elements_are_the
     insertNode(list, 0,&nums[0]);
     insertNode(list, 1,&nums[1]);
     insertNode(list, 2,&nums[2]);
-    // ASSERT(3 == list->length);
     ASSERT(10 == *(int*)list->head->data);
     ASSERT(deleteNode(list, 0));
-    // ASSERT(2 == list->length);
     ASSERT(20 == *(int*)list->head->data);
 };
 
