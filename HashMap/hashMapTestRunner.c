@@ -119,6 +119,11 @@ int main(){
 		test_remove_from_hashMap_when_element_to_remove_is_NULL();
 	tearDown();
 	testEnded();
+	testStarted("test_keys_gives_iterator_for_hashmap");
+	setup();
+		test_keys_gives_iterator_for_hashmap();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();

@@ -21,6 +21,7 @@ Hashmap createHashmap(Comparator *compare,HashCodeGenerator *generator){
 	hashmap.bucket = createArrayList(10);
 	hashmap.compare = compare;
 	hashmap.hashCodeGenerator = generator;
+	hashmap.keys = createList();
 	assignAllSlots(&hashmap.bucket);
 	return hashmap;
 }
@@ -36,12 +37,12 @@ List* getListFromHashMap(Hashmap* hash,void* key){
 	return slotOfElement->list;
 }
 
-HashElement* getElementFromList(List *list,void* key,Compare *comp){
+HashElement* getElementFromList(List *list,void* key,Compare *compare){
 	HashElement *temp;
 	Iterator it = getIteratorForList(list);
 	while(it.hasNext(&it)){
 		temp = it.next(&it);
-		if(comp(temp->key , key) == 0)
+		if(compare(temp->key , key) == 0)
 			return temp;
 	}
 	return NULL;
@@ -108,4 +109,20 @@ int removeFromHashMap(Hashmap *hash,void* key){
 	element = getElementFromList(list,key,hash->compare);
 	index = getIndexFromList(list,element,&compareKeysOfHashElements);
 	return deleteNode(list,index);
+}
+
+Iterator keys(Hashmap *hash){
+	Iterator listIT,keysIT,arrayIT;
+	Slot *slot;
+	List *keys = (List*)hash->keys;
+	arrayIT = getIterator(&hash->bucket);
+	while(arrayIT.hasNext(&arrayIT)){
+		slot = arrayIT.next(&arrayIT);
+		listIT = getIteratorForList(slot->list);
+		while(listIT.hasNext(&listIT)){
+			insertNode(keys,keys->length,listIT.next(&listIT));
+		}
+	}
+	keysIT = getIteratorForList(keys);
+	return keysIT;
 }

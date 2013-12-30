@@ -1,5 +1,6 @@
 #include "testUtils.h"
 #include "hashMap.h"
+#include "privateHashMap.h"
 #include <stdlib.h>
 
 //create setup, tearDown, fixtureSetup, fixtureTearDown methods if needed
@@ -112,4 +113,16 @@ void test_removes_from_hashMap_when_hashMap_is_NULL(){
 void test_remove_from_hashMap_when_element_to_remove_is_NULL(){
 	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
 	ASSERT(removeFromHashMap(&hashmap,NULL) == FAIL);
+} 
+
+void test_keys_gives_iterator_for_hashmap(){
+	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
+    int value = 20;
+    int key = 1;
+    Iterator it;
+    HashElement *temp;
+    putValue(&hashmap,&key,&value);
+    it = keys(&hashmap);
+    temp = it.next(&it);
+    ASSERT(temp->key == &key);
 }
