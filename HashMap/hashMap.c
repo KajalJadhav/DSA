@@ -126,3 +126,18 @@ Iterator keys(Hashmap *hash){
 	keysIT = getIteratorForList(keys);
 	return keysIT;
 }
+
+void disposeSlot(Slot *slot){
+    disposeList(slot->list);
+    free(slot);
+}
+
+void disposeHashmap(Hashmap *hash){
+    Iterator it = getIterator(&hash->bucket);
+    Slot *slot;
+    while(it.hasNext(&it)){
+        slot = it.next(&it);
+        disposeSlot(slot);
+    }
+    disposeArrayList(&hash->bucket);
+}

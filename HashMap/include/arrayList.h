@@ -25,4 +25,4 @@ Iterator getIterator(ArrayList* list);
 
 void iterate(ArrayList list, ForEach* forEach);
 
-void dispose(ArrayList *list);
+void disposeArrayList(ArrayList *list);

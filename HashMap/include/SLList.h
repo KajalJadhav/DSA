@@ -14,3 +14,4 @@ List* createList();
 int insertNode(List* list,int index,void* data);
 int deleteNode(List* list,int index);
 Iterator getIteratorForList(List* list);
+void disposeList(List *list);

@@ -79,6 +79,11 @@ int main(){
 		test_puts_when_key_is_present_but_value_is_NULL();
 	tearDown();
 	testEnded();
+	testStarted("test_put_updates_value_when_key_is_already_present");
+	setup();
+		test_put_updates_value_when_key_is_already_present();
+	tearDown();
+	testEnded();
 	testStarted("test_getValue_when_element_present");
 	setup();
 		test_getValue_when_element_present();

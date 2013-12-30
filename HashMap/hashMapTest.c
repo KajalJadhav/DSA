@@ -2,7 +2,6 @@
 #include "hashMap.h"
 #include "privateHashMap.h"
 #include <stdlib.h>
-
 //create setup, tearDown, fixtureSetup, fixtureTearDown methods if needed
 
 const int SUCCESS = 1;
@@ -22,6 +21,7 @@ void test_puts_one_element_into_hashmap(){
     int key = 2;
     putValue(&hashmap,&key,&value);
     ASSERT(getValue(&hashmap,&key) == &value);
+    disposeHashmap(&hashmap);
 }
 
 void test_puts_two_elements_in_same_slot_of_hashMap(){
@@ -66,6 +66,15 @@ void test_puts_when_key_is_present_but_value_is_NULL(){
 	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
 	int key = 2;
 	ASSERT(putValue(&hashmap,&key,NULL) == SUCCESS);
+}
+
+void test_put_updates_value_when_key_is_already_present(){
+	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
+    int values[] = {100,200};
+    int key = 11;
+    putValue(&hashmap,&key,&values[0]);
+    putValue(&hashmap,&key,&values[1]);
+    ASSERT(getValue(&hashmap,&key));
 }
 
 void test_getValue_when_element_present(){
