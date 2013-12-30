@@ -113,7 +113,7 @@ void test_removes_from_hashMap_when_hashMap_is_NULL(){
 void test_remove_from_hashMap_when_element_to_remove_is_NULL(){
 	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
 	ASSERT(removeFromHashMap(&hashmap,NULL) == FAIL);
-} 
+}
 
 void test_keys_gives_iterator_for_hashmap(){
 	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
@@ -125,4 +125,23 @@ void test_keys_gives_iterator_for_hashmap(){
     it = keys(&hashmap);
     temp = it.next(&it);
     ASSERT(temp->key == &key);
+}
+
+void test_keys_gives_iterator_for_hashmap_when_multiple_elements_present(){
+	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
+    int values[] = {10,20,30,40};
+    int key[] = {1,2,3,4};
+    Iterator it;
+    int i = 0;
+    HashElement *temp;
+    for(i=0;i<4;i++){
+        putValue(&hashmap,&key[i],&values[i]);
+    }
+    it = keys(&hashmap);
+    i = 0;
+    while(it.hasNext(&it)){
+        temp = it.next(&it);
+        ASSERT(temp->key == &key[i]);
+        i++;
+    }
 }
