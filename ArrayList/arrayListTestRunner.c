@@ -154,24 +154,19 @@ int main(){
 		test_deletes_and_shifts_elements_left();
 	tearDown();
 	testEnded();
-	testStarted("test_add_adds_to_end_of_list");
+	testStarted("test_adds_element_to_end_of_list");
 	setup();
-		test_add_adds_to_end_of_list();
+		test_adds_element_to_end_of_list();
 	tearDown();
 	testEnded();
-	testStarted("test_add_adds_multiple_data_to_end_of_list");
+	testStarted("test_adds_multiple_data_to_end_of_list");
 	setup();
-		test_add_adds_multiple_data_to_end_of_list();
+		test_adds_multiple_data_to_end_of_list();
 	tearDown();
 	testEnded();
 	testStarted("test_prints_data_of_each_element");
 	setup();
 		test_prints_data_of_each_element();
-	tearDown();
-	testEnded();
-	testStarted("test_fail");
-	setup();
-		test_fail();
 	tearDown();
 	testEnded();
 

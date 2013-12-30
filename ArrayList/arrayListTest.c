@@ -1,6 +1,5 @@
 #include "testUtils.h"
 #include "arrayList.h"
-#include "iterator.h"
 #include <stdlib.h>
 
 const int SUCCESS = 1;
@@ -27,12 +26,12 @@ int compareInterns(void *intern1,void *intern2){
 
 void setup() {
 	int noOfElements = 2;	
-	interns = create(noOfElements);
+	interns = createArrayList(noOfElements);
 	internsPtr = &interns;
 }
 
 void tearDown() {
-	dispose(internsPtr);	
+	disposeArrayList(internsPtr);	
 }
 
 void test_inserts_element(){
@@ -51,13 +50,13 @@ void test_inserts_multiple_elements() {
 
 void test_interns_grows_beyond_capacity() {
 	int noOfElements = 1;
-	ArrayList list = create(noOfElements);
+	ArrayList list = createArrayList(noOfElements);
 	ArrayList *listPtr = &list;
 	insert(listPtr, 0, &prateek);
 	insert(listPtr, 1, &ji);
 	ASSERT(&prateek == get(listPtr, 0));
 	ASSERT(&ji == get(listPtr, 1));
-	dispose(listPtr);		
+	disposeArrayList(listPtr);		
 }
 
 void test_should_not_insert_at_index_beyond_length() {
@@ -103,13 +102,13 @@ void test_adds_multiple_elements() {
 
 void test_adding_element_list_grows_beyond_capacity() {
     int noOfElements = 1;
-    ArrayList list = create(noOfElements);
+    ArrayList list = createArrayList(noOfElements);
     ArrayList *listPtr = &list;
     add(listPtr, &prateek);
     add(listPtr, &ji);
     ASSERT(&prateek == get(listPtr, 0));
     ASSERT(&ji == get(listPtr, 1));
-    dispose(listPtr);                
+    disposeArrayList(listPtr);                
 }
 
 void test_removes_element_from_list(){
@@ -230,8 +229,4 @@ void test_prints_data_of_each_element(){
     add(internsPtr, &prateek);
     add(internsPtr, &ji);
     iterate(interns, printId);
-}
-
-void test_fail(){
-	ASSERT(0);
 }

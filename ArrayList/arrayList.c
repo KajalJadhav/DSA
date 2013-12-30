@@ -1,8 +1,7 @@
 #include "arrayList.h"
-#include "iterator.h"
 #include <stdlib.h>
 
-ArrayList create(int capacity) {
+ArrayList createArrayList(int capacity) {
 	ArrayList list;
 	list.base = (void*)malloc(sizeof(void*) * capacity);
 	list.capacity = capacity;
@@ -42,11 +41,6 @@ int insert(ArrayList *list, int index, void* data) {
 }
 
 int add(ArrayList *list, void* data){
-    // if (list == NULL) return 0;
-    // increaseCapacity(list);
-    // list->base[list->length] = data;
-    // list->length++;
-    // return 1;
     return insert(list,list->length, data);
 }
 
@@ -102,12 +96,12 @@ Iterator getIterator(ArrayList* list){
 }
 
 void iterate(ArrayList list, ForEach* forEach){
-        int result,index;
-        for(index = 0;index < list.length ;index++){
-                forEach(list.base[index]);
-        }
+    int result,index;
+    for(index = 0;index < list.length ;index++){
+        forEach(list.base[index]);
+    }
 }
 
-void dispose(ArrayList *list) {
+void disposeArrayList(ArrayList *list) {
 	free(list->base);
 }
