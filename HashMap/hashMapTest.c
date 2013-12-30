@@ -20,26 +20,34 @@ void test_puts_one_element_into_hashmap(){
 	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
     int value = 20;
     int key = 2;
-    ASSERT(putValue(&hashmap,&key,&value) == SUCCESS);
+    putValue(&hashmap,&key,&value);
+    ASSERT(getValue(&hashmap,&key) == &value);
 }
 
 void test_puts_two_elements_in_same_slot_of_hashMap(){
 	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
 	int values[] = {100,200};
 	int keys[] = {11,21};
-	ASSERT(putValue(&hashmap,&keys[0],&values[0]) == SUCCESS);
-	ASSERT(putValue(&hashmap,&keys[1],&values[1]) == SUCCESS);
+	putValue(&hashmap,&keys[0],&values[0]);
+	putValue(&hashmap,&keys[1],&values[1]);
+	ASSERT(getValue(&hashmap,&keys[0]) == &values[0]);
+    ASSERT(getValue(&hashmap,&keys[1]) == &values[1]);
 }
 
 void test_puts_multiple_elements_in_different_slots_of_hashMap(){
 	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
 	int values[] = {100,200,300,400,500};
 	int keys[] = {11,12,13,14,15};
-	ASSERT(putValue(&hashmap,&keys[0],&values[0]) == SUCCESS);
-	ASSERT(putValue(&hashmap,&keys[1],&values[1]) == SUCCESS);
-	ASSERT(putValue(&hashmap,&keys[2],&values[2]) == SUCCESS);
-	ASSERT(putValue(&hashmap,&keys[3],&values[3]) == SUCCESS);
-	ASSERT(putValue(&hashmap,&keys[4],&values[4]) == SUCCESS);
+	putValue(&hashmap,&keys[0],&values[0]);
+	putValue(&hashmap,&keys[1],&values[1]);
+	putValue(&hashmap,&keys[2],&values[2]);
+	putValue(&hashmap,&keys[3],&values[3]);
+	putValue(&hashmap,&keys[4],&values[4]);
+	ASSERT(getValue(&hashmap,&keys[0]) == &values[0]);
+    ASSERT(getValue(&hashmap,&keys[1]) == &values[1]);
+    ASSERT(getValue(&hashmap,&keys[2]) == &values[2]);
+    ASSERT(getValue(&hashmap,&keys[3]) == &values[3]);
+    ASSERT(getValue(&hashmap,&keys[4]) == &values[4]);
 }
 
 void test_does_not_put_when_hashmap_is_NULL(){
@@ -91,7 +99,7 @@ void test_removes_from_hashMap(){
 	Hashmap hashmap = createHashmap(&compareKeys, &keyGenerator);
 	int value = 20;
 	int key = 2;
-	ASSERT(putValue(&hashmap,&key,&value) == SUCCESS);
+	putValue(&hashmap,&key,&value);
 	ASSERT(removeFromHashMap(&hashmap,&key) == SUCCESS);
 	ASSERT(getValue(&hashmap,&key) == NULL);
 }
@@ -101,7 +109,7 @@ void test_tries_to_remove_element_from_hashMap_which_is_not_present(){
 	int value = 20;
 	int key = 2;
 	int KeyToRemove = 3;
-	ASSERT(putValue(&hashmap,&key,&value) == SUCCESS);
+	putValue(&hashmap,&key,&value);
 	ASSERT(removeFromHashMap(&hashmap,&KeyToRemove) == FAIL);
 }
 
@@ -134,7 +142,7 @@ void test_keys_gives_iterator_for_hashmap_when_multiple_elements_present(){
     Iterator it;
     int i = 0;
     HashElement *temp;
-    for(i=0;i<4;i++){
+    for(i = 0;i < 4;i++){
         putValue(&hashmap,&key[i],&values[i]);
     }
     it = keys(&hashmap);
