@@ -18,7 +18,6 @@ void bubbleSort(void* base, int numberOfElements, int typeSize,compare compareFu
                 memcpy(elementToCompare, nextElement, typeSize);
                 memcpy(nextElement, temp, typeSize);
             }
-
         }
     }
 }
