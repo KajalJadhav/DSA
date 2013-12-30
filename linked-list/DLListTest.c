@@ -23,20 +23,20 @@ int areAccountsEqual(Account expected,Account actual){
     return expected.accountNo == actual.accountNo && expected.balance == actual.balance;
 }
 
-void test_1_gives_an_Doubly_link_list_with_head_NULL(){
+void test_gives_an_Doubly_link_list_with_head_NULL(){
     list = create();
     ASSERT(NULL == list->head);
     ASSERT(0 == list->length);
 };
 
-void test_2_creates_node(){
+void test_creates_node(){
     Node expected = {NULL,NULL,NULL};
     Node *actual = createNode(NULL,NULL);
     ASSERT(expected.next == actual->next);
     ASSERT(expected.prev == actual->prev);
 }
 
-void test_3_inserts_an_element_at_head_of_link_list(){
+void test_inserts_an_element_at_head_of_link_list(){
     int* num = malloc(sizeof(int));
     list = create();
     *num = 10;
@@ -47,7 +47,7 @@ void test_3_inserts_an_element_at_head_of_link_list(){
     ASSERT(1 == list->length);
 }
 
-void test_4_inserts_an_element_at_the_end_of_linkList(){
+void test_inserts_an_element_at_the_end_of_linkList(){
     int* nums = malloc(sizeof(int)*3);
     Node *result1,*result2;
     list = create();
@@ -73,7 +73,7 @@ void test_4_inserts_an_element_at_the_end_of_linkList(){
     ASSERT(3 == list->length);
 };
 
-void test_5_inserts_element_in_middle_of_link_List(){
+void test_inserts_element_in_middle_of_link_List(){
     Node *second,*third,*fourth;
     int* nums = malloc(sizeof(int)*3);
     nums[0] = 10;
@@ -98,7 +98,7 @@ void test_5_inserts_element_in_middle_of_link_List(){
     ASSERT(40 == *(int*)fourth->data);
 }
 
-void test_6_inserts_multiple_element_as_the_head_of_link_list(){
+void test_inserts_multiple_element_as_the_head_of_link_list(){
     int* nums = malloc(sizeof(int)*3);
     list = create();
     nums[0] = 10;
@@ -115,7 +115,7 @@ void test_6_inserts_multiple_element_as_the_head_of_link_list(){
     ASSERT(3 == list->length);
 }
 
-void test_7_inserts_the_doubles_in_the_linklist(){
+void test_inserts_the_doubles_in_the_linklist(){
     double* nums = malloc(sizeof(double)*3);
     list = create();
     nums[0] = 1.0;
@@ -131,7 +131,7 @@ void test_7_inserts_the_doubles_in_the_linklist(){
     ASSERT(3.0 == *(double*)list->head->next->data);
     ASSERT(3 == list->length);
 }
-void test_8_inserts_the_characters_in_the_link_list(){
+void test_inserts_the_characters_in_the_link_list(){
     char* chars = malloc(sizeof(char)*3);
     list = create();
     chars[0] = 'a';
@@ -148,7 +148,7 @@ void test_8_inserts_the_characters_in_the_link_list(){
     ASSERT(3 == list->length);
 }
         
-void test_9_inserts_the_strings_in_the_link_list(){
+void test_inserts_the_strings_in_the_link_list(){
     String* names = malloc(sizeof(String)*3);
     list = create();
     strcpy(names[0], "Kajal");
@@ -165,7 +165,7 @@ void test_9_inserts_the_strings_in_the_link_list(){
     ASSERT(3 == list->length);
 }
 
-void test_10_inserts_the_structures_in_the_link_list(){
+void test_inserts_the_structures_in_the_link_list(){
     Account* accounts = malloc(sizeof(Account)*3);
     list = create();
     accounts[0].accountNo = 100;accounts[0].balance = 1000;
@@ -182,7 +182,7 @@ void test_10_inserts_the_structures_in_the_link_list(){
     ASSERT(3 == list->length);
 }
 
-void test_11_deletes_element_in_list_which_has_one_element(){
+void test_deletes_element_in_list_which_has_one_element(){
     int* nums = malloc(sizeof(int));
     *nums = 5;
     list = create();
@@ -192,7 +192,7 @@ void test_11_deletes_element_in_list_which_has_one_element(){
     ASSERT(NULL == list->head);
 }
 
-void test_12_deletes_first_element_in_list_when_more_than_one_elements_are_there(){
+void test_deletes_first_element_in_list_when_more_than_one_elements_are_there(){
     int* nums = malloc(sizeof(int)*3);
     list = create();
     nums[0] = 10;
@@ -208,7 +208,7 @@ void test_12_deletes_first_element_in_list_when_more_than_one_elements_are_there
     ASSERT(20 == *(int*)list->head->data);
 }
 
-void test_13_deletes_last_element_in_the_link_List(){
+void test_deletes_last_element_in_the_link_List(){
     int* nums = malloc(sizeof(int)*3);
     list = create();
     nums[0] = 10;
@@ -221,7 +221,7 @@ void test_13_deletes_last_element_in_the_link_List(){
     ASSERT(2 == list->length);
     ASSERT(NULL == list->head->next->next);
 }
-void test_14_deletes_element_in_between_of_link_list(){
+void test_deletes_element_in_between_of_link_list(){
     int* nums = malloc(sizeof(int)*3);
     list = create();
     nums[0] = 10;
@@ -233,8 +233,4 @@ void test_14_deletes_element_in_between_of_link_list(){
     ASSERT(deleteNode(list, 1));
     ASSERT(2 == list->length);
     ASSERT(30 == *(int*)list->head->next->data);
-}
-
-void test_fail(){
-	ASSERT(0);
 }

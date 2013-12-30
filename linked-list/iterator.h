@@ -2,7 +2,7 @@
 
 typedef struct {
 	node* current;
-	DoubleList* list;
+	DLList* list;
 } Iterator;
 
 void* next(Iterator* it);
