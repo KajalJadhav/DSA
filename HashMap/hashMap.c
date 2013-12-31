@@ -15,14 +15,17 @@ void assignAllSlots(ArrayList *list){
 		counter++;
 	}
 }
+void assignBucketsAndSlots(Hashmap* hash,int capacity){
+	hash->bucket = createArrayList(capacity);
+	assignAllSlots(&hash->bucket);
+}
 
 Hashmap createHashmap(Comparator *compare,HashCodeGenerator *generator){
 	Hashmap hashmap;
-	hashmap.bucket = createArrayList(10);
+	assignBucketsAndSlots(&hashmap,10);
 	hashmap.compare = compare;
 	hashmap.hashCodeGenerator = generator;
 	hashmap.keys = createList();
-	assignAllSlots(&hashmap.bucket);
 	return hashmap;
 }
 
@@ -55,20 +58,42 @@ HashElement *createHashElement(void* key,void*value){
 	return hashElement;
 }
 
+void putKeysInRehashedMap(Hashmap* hash,Iterator keysIT){
+	HashElement* element;
+	while(keysIT.hasNext(&keysIT)){
+		element = keysIT.next(&keysIT);
+		putValue(hash,element->key,element->value);
+	}
+}
+
+void rehashIfNeeded(Hashmap* hash,void* key){
+	List* list;
+	Iterator Keys;
+	int currentCapacity = hash->bucket.capacity;
+	list = getListFromHashMap(hash,key);
+	if(list->length < 2)
+		return;
+	Keys = keys(hash);
+	disposeHashmap(hash);
+	assignBucketsAndSlots(hash,currentCapacity*2);
+	putKeysInRehashedMap(hash,Keys);
+}
+
 int putValue(Hashmap* hash,void* key,void* value){
 	List *list;
-	HashElement *hashElement;
+	HashElement *element;
 	if(hash == NULL || key == NULL) 
 		return 0;
+	rehashIfNeeded(hash,key);
 	list = getListFromHashMap(hash, key);
-	hashElement = getElementFromList(list,key,hash->compare);
+	element = getElementFromList(list,key,hash->compare);
 	
-	if(hashElement != NULL){
-		hashElement->value = value;
+	if(element != NULL){
+		element->value = value;
 		return 1;
 	}
-	hashElement = createHashElement(key,value);
-	return insertNode(list,list->length, hashElement);
+	element = createHashElement(key,value);
+	return insertNode(list,list->length, element);
 }
 
 void* getValue(Hashmap *hash, void *key){

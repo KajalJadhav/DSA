@@ -34,11 +34,11 @@ void test_puts_one_element_into_hashmap(){
 
 void test_puts_two_elements_in_same_slot_of_hashMap(){
 	int values[] = {100,200};
-	int keys[] = {11,21};
-	putValue(&hashmap,&keys[0],&values[0]);
-	putValue(&hashmap,&keys[1],&values[1]);
-	ASSERT(getValue(&hashmap,&keys[0]) == &values[0]);
-    ASSERT(getValue(&hashmap,&keys[1]) == &values[1]);
+	int key[] = {11,21};
+	putValue(&hashmap,&key[0],&values[0]);
+	putValue(&hashmap,&key[1],&values[1]);
+	ASSERT(getValue(&hashmap,&key[0]) == &values[0]);
+    ASSERT(getValue(&hashmap,&key[1]) == &values[1]);
 }
 
 void test_puts_multiple_elements_in_different_slots_of_hashMap(){
@@ -156,4 +156,14 @@ void test_keys_gives_iterator_for_hashmap_when_multiple_elements_present(){
         ASSERT(temp->key == &key[i]);
         i++;
     }
+}
+
+void test_rehash_when_list_grows_more_then_two_nodes(){
+	int values[] = {10,20,30};
+	int key[] = {1,11,21};
+	int i = 0;
+	for(i = 0;i < 3;i++){
+		putValue(&hashmap,&key[i],&values[i]);
+	}
+	ASSERT(hashmap.bucket.capacity == 20);
 }

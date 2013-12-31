@@ -134,6 +134,11 @@ int main(){
 		test_keys_gives_iterator_for_hashmap_when_multiple_elements_present();
 	tearDown();
 	testEnded();
+	testStarted("test_rehash_when_list_grows_more_then_two_nodes");
+	setup();
+		test_rehash_when_list_grows_more_then_two_nodes();
+	tearDown();
+	testEnded();
 
 	summarizeTestCount();
 	fixtureTearDown();
