@@ -44,11 +44,10 @@ void test_puts_two_elements_in_same_slot_of_hashMap(){
 void test_puts_multiple_elements_in_different_slots_of_hashMap(){
 	int values[] = {100,200,300,400,500};
 	int keys[] = {11,12,13,14,15};
-	putValue(&hashmap,&keys[0],&values[0]);
-	putValue(&hashmap,&keys[1],&values[1]);
-	putValue(&hashmap,&keys[2],&values[2]);
-	putValue(&hashmap,&keys[3],&values[3]);
-	putValue(&hashmap,&keys[4],&values[4]);
+	int i;
+	for(i = 0;i < 5;i++){
+        putValue(&hashmap,&keys[i],&values[i]);
+    }
 	ASSERT(getValue(&hashmap,&keys[0]) == &values[0]);
     ASSERT(getValue(&hashmap,&keys[1]) == &values[1]);
     ASSERT(getValue(&hashmap,&keys[2]) == &values[2]);
