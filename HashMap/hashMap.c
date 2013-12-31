@@ -140,6 +140,8 @@ Iterator keys(Hashmap *hash){
 	Iterator listIT,keysIT,arrayIT;
 	Slot *slot;
 	List *keys = (List*)hash->keys;
+	disposeList(keys);
+	keys = createList();
 	arrayIT = getIterator(&hash->bucket);
 	while(arrayIT.hasNext(&arrayIT)){
 		slot = arrayIT.next(&arrayIT);
@@ -151,7 +153,7 @@ Iterator keys(Hashmap *hash){
 	keysIT = getIteratorForList(keys);
 	return keysIT;
 }
-
+	
 void disposeSlot(Slot *slot){
     disposeList(slot->list);
     free(slot);
